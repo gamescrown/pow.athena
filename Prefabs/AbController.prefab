@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1011454960654997755}
   - component: {fileID: 5367677327960904594}
+  - component: {fileID: 4092393707540470373}
   m_Layer: 0
   m_Name: AbController
   m_TagString: Untagged
@@ -44,3 +45,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abTestDataHandler: {fileID: 0}
+--- !u!114 &4092393707540470373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4895884369179363840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14781280367c149a2af841bccb5cab64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Events:
+  - {fileID: 11400000, guid: d39b3dda65f314af5a23e37fc31b1eb2, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5367677327960904594}
+        m_TargetAssemblyTypeName: pow.athena.AbController, POW.Athena
+        m_MethodName: OnSetUserVariant
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
