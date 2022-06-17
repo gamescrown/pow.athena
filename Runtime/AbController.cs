@@ -20,13 +20,13 @@ namespace pow.athena
         private IEnumerator WaitFirebaseSDKInitializedForSendUserVariant()
         {
             yield return new WaitUntil(() => FirebaseInit.Instance.isFirebaseInitialized);
-            EventSender.SetUserProperty(abTestDataHandler.Key, abTestDataHandler.Variant);
+            EventSender.SetUserProperty(abTestDataHandler.Key, abTestDataHandler.Value);
         }
 
         private IEnumerator WaitAppplovinSDKInitializedForSendUserSegment()
         {
             yield return new WaitUntil(() => AppLovinMaxManager.Instance.IsInitialized());
-            AppLovinMaxManager.Instance.SetUserSegment(abTestDataHandler.Variant);
+            AppLovinMaxManager.Instance.SetUserSegment(abTestDataHandler.Value);
         }
     }
 }

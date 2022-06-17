@@ -10,24 +10,24 @@ namespace pow.athena
         [SerializeField] private string key;
         [SerializeField] private string value;
         [SerializeField] private string defaultValue;
-        [SerializeField] private bool isVariantAlreadySet;
+        [SerializeField] private bool isValueAlreadySet;
         [SerializeField] private GameEvent onSetUserVariant;
 
         public string Key => key;
         public string DefaultValue => defaultValue;
+        public bool IsValueAlreadySet => isValueAlreadySet;
 
-        public string Variant
+        public string Value
         {
             get => value;
             set
             {
                 this.value = value;
-                isVariantAlreadySet = true;
+                isValueAlreadySet = true;
                 onSetUserVariant?.Invoke();
                 Save(Write);
             }
         }
-
 
         private void OnEnable()
         {
@@ -37,14 +37,14 @@ namespace pow.athena
             Load(reader =>
             {
                 value = reader.ReadString();
-                isVariantAlreadySet = reader.ReadBoolean();
+                isValueAlreadySet = reader.ReadBoolean();
             });
         }
 
         private void Write(BinaryWriter writer)
         {
             writer.Write(value);
-            writer.Write(isVariantAlreadySet);
+            writer.Write(isValueAlreadySet);
         }
     }
 }
