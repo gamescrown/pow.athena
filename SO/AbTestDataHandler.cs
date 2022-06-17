@@ -8,18 +8,20 @@ namespace pow.athena
     public class AbTestDataHandler : StoredScriptableObject
     {
         [SerializeField] private string key;
-        [SerializeField] private string variant;
+        [SerializeField] private string value;
+        [SerializeField] private string defaultValue;
         [SerializeField] private bool isVariantAlreadySet;
         [SerializeField] private GameEvent onSetUserVariant;
 
         public string Key => key;
+        public string DefaultValue => defaultValue;
 
         public string Variant
         {
-            get => variant;
+            get => value;
             set
             {
-                variant = value;
+                this.value = value;
                 isVariantAlreadySet = true;
                 onSetUserVariant?.Invoke();
                 Save(Write);
@@ -34,14 +36,14 @@ namespace pow.athena
             TempFilePath = Path.Combine(Application.persistentDataPath, $"temp{encryptedName}");
             Load(reader =>
             {
-                variant = reader.ReadString();
+                value = reader.ReadString();
                 isVariantAlreadySet = reader.ReadBoolean();
             });
         }
 
         private void Write(BinaryWriter writer)
         {
-            writer.Write(variant);
+            writer.Write(value);
             writer.Write(isVariantAlreadySet);
         }
     }
