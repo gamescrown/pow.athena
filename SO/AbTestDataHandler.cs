@@ -22,6 +22,7 @@ namespace pow.athena
             get => value;
             set
             {
+                if (isValueAlreadySet) return;
                 this.value = value;
                 isValueAlreadySet = true;
                 onSetUserVariant?.Invoke();

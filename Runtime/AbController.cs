@@ -1,4 +1,5 @@
 using System.Collections;
+using Firebase.Analytics;
 using pow.addy;
 using pow.hermes;
 using UnityEngine;
@@ -21,6 +22,11 @@ namespace pow.athena
         {
             yield return new WaitUntil(() => FirebaseInit.Instance.isFirebaseInitialized);
             EventSender.SetUserProperty(abTestDataHandler.Key, abTestDataHandler.Value);
+            EventSender.LogFirebaseEvent(
+                abTestDataHandler.Key,
+                FirebaseAnalytics.ParameterValue,
+                abTestDataHandler.Value
+            );
         }
 
         private IEnumerator WaitAppplovinSDKInitializedForSendUserSegment()
