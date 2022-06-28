@@ -24,6 +24,7 @@ namespace pow.athena
             yield return new WaitUntil(() => FirebaseInit.Instance.isFirebaseInitialized);
             foreach (var abTestDataHandler in abTestDataHandlers)
             {
+                if (!abTestDataHandler.HaveToSendDataToAnalytics) continue;
                 EventSender.SetUserProperty(abTestDataHandler.Key, abTestDataHandler.Value);
                 EventSender.LogFirebaseEvent(
                     abTestDataHandler.Key,

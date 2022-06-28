@@ -11,11 +11,13 @@ namespace pow.athena
         [SerializeField] private string value;
         [SerializeField] private string defaultValue;
         [SerializeField] private bool isValueAlreadySet;
+        [SerializeField] private bool haveToSendDataToAnalytics;
         [SerializeField] private GameEvent onSetUserVariant;
 
         public string Key => key;
         public string DefaultValue => defaultValue;
         public bool IsValueAlreadySet => isValueAlreadySet;
+        public bool HaveToSendDataToAnalytics => haveToSendDataToAnalytics;
 
         public string Value
         {
@@ -25,7 +27,7 @@ namespace pow.athena
                 if (isValueAlreadySet) return;
                 this.value = value;
                 isValueAlreadySet = true;
-                onSetUserVariant?.Invoke();
+                haveToSendDataToAnalytics = true;
                 Save(Write);
             }
         }
