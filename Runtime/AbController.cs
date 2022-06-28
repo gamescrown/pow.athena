@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Firebase.Analytics;
 using pow.addy;
 using pow.hermes;
@@ -8,7 +9,7 @@ namespace pow.athena
 {
     public class AbController : MonoBehaviour
     {
-        [SerializeField] private AbTestDataHandler abTestDataHandler;
+        [SerializeField] private List<AbTestDataHandler> abTestDataHandlers = new List<AbTestDataHandler>();
 
         // Called from game event listener, listen OnSetUserVariant game event
         public void OnSetUserVariant()
@@ -21,18 +22,25 @@ namespace pow.athena
         private IEnumerator WaitFirebaseSDKInitializedForSendUserVariant()
         {
             yield return new WaitUntil(() => FirebaseInit.Instance.isFirebaseInitialized);
-            EventSender.SetUserProperty(abTestDataHandler.Key, abTestDataHandler.Value);
-            EventSender.LogFirebaseEvent(
-                abTestDataHandler.Key,
-                FirebaseAnalytics.ParameterValue,
-                abTestDataHandler.Value
-            );
+            foreach (var abTestDataHandler in abTestDataHandlers)
+            {
+                EventSender.SetUserProperty(abTestDataHandler.Key, abTestDataHandler.Value);
+                EventSender.LogFirebaseEvent(
+                    abTestDataHandler.Key,
+                    FirebaseAnalytics.ParameterValue,
+                    abTestDataHandler.Value
+                );
+            }
         }
 
         private IEnumerator WaitAppplovinSDKInitializedForSendUserSegment()
         {
             yield return new WaitUntil(() => AppLovinMaxManager.Instance.IsInitialized());
-            AppLovinMaxManager.Instance.SetUserSegment(abTestDataHandler.Value);
+            foreach (var abTestDataHandler in abTestDataHandlers)
+            {
+                // TODO: You must be control that this a/b test is active
+                AppLovinMaxManager.Instance.SetUserSegment(abTestDataHandler.Value);
+            }
         }
     }
 }
