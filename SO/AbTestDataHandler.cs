@@ -28,26 +28,20 @@ namespace pow.athena
                 this.value = value;
                 isValueAlreadySet = true;
                 haveToSendDataToAnalytics = true;
-                Save(Write);
+                Save();
             }
         }
 
-        private void OnEnable()
-        {
-            string encryptedName = TextEncryption.Encrypt(name, Password);
-            FilePath = Path.Combine(Application.persistentDataPath, encryptedName);
-            TempFilePath = Path.Combine(Application.persistentDataPath, $"temp{encryptedName}");
-            Load(reader =>
-            {
-                value = reader.ReadString();
-                isValueAlreadySet = reader.ReadBoolean();
-            });
-        }
-
-        private void Write(BinaryWriter writer)
+        protected override void Write(BinaryWriter writer)
         {
             writer.Write(value);
             writer.Write(isValueAlreadySet);
+        }
+
+        protected override void Read(BinaryReader reader)
+        {
+            value = reader.ReadString();
+            isValueAlreadySet = reader.ReadBoolean();
         }
     }
 }
